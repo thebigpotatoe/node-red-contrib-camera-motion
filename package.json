@@ -1,6 +1,6 @@
 {
     "name": "node-red-contrib-camera-motion",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A basic motion detection node using background subtraction from vision",
     "author": "thebigpotatoe",
     "license": "MIT",
