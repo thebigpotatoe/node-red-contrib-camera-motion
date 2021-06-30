@@ -1,0 +1,127 @@
+<!-- Input Node -->
+<script type="text/javascript">
+    RED.nodes.registerType('camera-motion', {
+        category: 'Motion Detection',
+        color: '#a6bbcf',
+        inputs: 1,
+        outputs: 1,
+        icon: "camera.png",
+        defaults: {
+            name: { value: "camera-motion", required: true },
+            input_width: { value: 250 },
+            blur: { value: 1 },
+            threshold_cutoff: { value: 25 },
+            motion_percentage: { value: 10 },
+            output_image: { value: false },
+            background_capture_timeout: { value: 0 },
+            background_capture_frames: { value: 50 },
+        },
+        label: function () {
+            return this.name || "camera-motion"
+        },
+        oneditprepare: async function () {
+
+        },
+        oneditsave: function () {
+
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="camera-motion">
+<!-- Input Name -->
+<h4>Node Configuration</h4>
+
+<div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+</div>
+
+<hr>
+
+<h4>Motion Calculation Configuration</h4>
+
+<div class="form-row">
+    <label for="node-input-input_width"><i class="icon-tag"></i>Input Width</label>
+    <input type="text" id="node-input-input_width" placeholder="Size that the input is reshaped to (Default: 250)">
+</div>
+
+<div class="form-row">
+    <label for="node-input-blur"><i class="icon-tag"></i>Input Blur</label>
+    <input type="text" id="node-input-blur" placeholder="Blur operation value (Default: 1)">
+</div>
+
+<div class="form-row">
+    <label for="node-input-threshold_cutoff"><i class="icon-tag"></i>Threshold</label>
+    <input type="text" id="node-input-threshold_cutoff" placeholder="Cutoff 8 bit pixel value for thresholding (Default: 25)">
+</div>
+
+<div class="form-row">
+    <label for="node-input-motion_percentage"><i class="icon-tag"></i>Detection %</label>
+    <input type="text" id="node-input-motion_percentage" placeholder="Percentage of motion pixels to trigger motion (Default: 10)">
+</div>
+
+<div class="form-row">
+    <label for="node-input-output_image">Output Image</label>
+    <input type="checkbox" id="node-input-output_image" style="display: inline-block; width: auto; vertical-align: top;">
+    
+</div>
+
+<hr>
+
+<h4>Background Capture Configuration</h4>
+
+<div class="form-row">
+    <label for="node-input-background_capture_frames"><i class="icon-tag"></i>Frame Buffer</label>
+    <input type="text" id="node-input-background_capture_frames" placeholder="Number of frames in background buffer (Default: 1)">
+</div>
+
+</script>
+
+<script type="text/x-red" data-help-name="camera-motion">
+    <h3>Overview</h3>
+    <p>
+        This node takes a stream of images and detects motion seen in frame. 
+    </p> 
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">Buffer</span> </dt>
+        <dd> The payload must be set to a binary buffer of an image to be accepted</dd>
+    </dl>
+
+    <h3>Options</h3>
+    <dl class="message-properties">
+        <dt>Name <span class="property-type">String</span> </dt>
+        <dd> The name of the node instance </dd>
+
+        <dt class="optional">Input Width <span class="property-type">Number</span> </dt>
+        <dd> The width the image will be shrunk to during processing. Smaller will be faster, larger will be more accurate. Default: 250px</dd>
+
+        <dt class="optional">Input Blur<span class="property-type">Number</span></dt>
+        <dd> The value to blur the image by. Default: 1</dd>
+
+        <dt class="optional">Threshold<span class="property-type">Number</span></dt>
+        <dd> The 8 bit cutoff value for the threshold algorithm. Default: 25 </dd>
+
+        <dt class="optional">Detection % <span class="property-type">Number</span></dt>
+        <dd> The percentage of motion required to be detected before setting as detected. Default 10%</dd>
+
+        <dt class="optional">Output Image <span class="property-type">Checkbox</span></dt>
+        <dd> Select if you would like to see the frame which caused motion</dd>
+
+        <dt class="optional">Frame Buffer <span class="property-type">Number</span></dt>
+        <dd> The number of frames to keep in a buffer for analysis. Larger values will have a larger delay. Default: 5</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <p>
+        This node will analyse a video stream for motion between frames. the node offers several inputs to help tune the algorithm to 
+        best suit the users input.
+    </p> 
+        
+    <h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/thebigpotatoe/node-red-contrib-camera-motion">GitHub</a> - this nodes github repository</li>
+    </ul>
+</script>
